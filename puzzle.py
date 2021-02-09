@@ -19,6 +19,9 @@ def read_file(path) -> list:
 def check_for_duplicates(row: list) -> bool:
     """
     Receives a list of numbers and checks them for duplicates
+
+    >>> check_for_duplicates([1, 2, 3, 4, 5])
+    True
     """
 
     if len(set(row)) == len(row):
@@ -60,12 +63,12 @@ def flip_board(board: list) -> list:
     return flipped_board
 
 
-def check_fields(board: list, flipped_board: list):
+def check_fields(board: list, flipped_board: list) -> bool:
     """
     Parses fields from the board and the flipped board and checks them for duplicates
     """
 
-    field_board = [] #The field board is just a list of fields converted into strings
+    field_board = [] #The field board is just a list of fields reformatted as rows
 
     for i in range(5): #Flipped board is used here for easier field parsing
         field = board[i+4][4-i:9-i] + flipped_board[4-i][i:i+4]
@@ -74,7 +77,7 @@ def check_fields(board: list, flipped_board: list):
     return check_rows(field_board)
 
 
-def validate_board(board):
+def validate_board(board: list) -> bool:
     """
     Checks rows and columns by flipping the board, checks fields using the flipped board.
     """
