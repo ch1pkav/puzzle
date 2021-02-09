@@ -41,12 +41,11 @@ def check_rows(board: list) -> bool:
     return True
 
 
-def flip_board(board: list):
+def flip_board(board: list) -> list:
     """
     Flips board for easier vertical checking.
-
-    >>> flip_board(
     """
+
     dimensions = 9
     flipped_board = []
 
@@ -66,10 +65,10 @@ def check_fields(board: list, flipped_board: list):
     Parses fields from the board and the flipped board and checks them for duplicates
     """
 
-    field_board = []
+    field_board = [] #The field board is just a list of fields converted into strings
 
-    for i in range(5):
-        field = board[i+4][4-i:-i] + flipped_board[4-i][i:i+4]
+    for i in range(5): #Flipped board is used here for easier field parsing
+        field = board[i+4][4-i:9-i] + flipped_board[4-i][i:i+4]
         field_board.append(field)
 
     return check_rows(field_board)
@@ -79,6 +78,7 @@ def validate_board(board):
     """
     Checks rows and columns by flipping the board, checks fields using the flipped board.
     """
+
     flipped_board = flip_board(board)
 
     if not (check_rows(board) and check_rows(flipped_board) and check_fields(board, flipped_board)):
@@ -86,7 +86,3 @@ def validate_board(board):
 
     return True
 
-
-if __name__=="__main__":
-    board = read_file("board.txt.new")
-    print(validate_board(board))
